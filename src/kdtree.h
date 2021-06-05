@@ -22,7 +22,7 @@ struct KdTree
 	{
 		if(*node == NULL)
 		{
-	    	*node = new Node(point,id);
+	    		*node = new Node(point,id);
 		}
 		else
 		{
@@ -41,13 +41,13 @@ struct KdTree
 				else
 					insertHelper(&((*node)->right), depth+1, point, id);	
 			}	
-	    	else
-	    	{
-			if(point.z < ((*node)->point.z))
-				insertHelper(&((*node)->left), depth+1, point, id);
-			else
-				insertHelper(&((*node)->right), depth+1, point, id);
-	    	}
+	    		else
+	    		{
+				if(point.z < ((*node)->point.z))
+					insertHelper(&((*node)->left), depth+1, point, id);
+				else
+					insertHelper(&((*node)->right), depth+1, point, id);
+	    		}
 		}
 	}
     
@@ -58,20 +58,20 @@ struct KdTree
         	insertHelper(&root,0,point,id);
 	}
 
-    void searchHelper(pcl::PointXYZI target, Node* node, int depth, float distanceTol, std::vector<int> &ids)
+	void searchHelper(pcl::PointXYZI target, Node* node, int depth, float distanceTol, std::vector<int> &ids)
 	{
 		if(node!=NULL)
 		{   
-            	// 判断该点是否在box（球的外接正方体）范围内，如果在则继续判断该点是否在圆内
+		// 判断该点是否在box（球的外接正方体）范围内，如果在则继续判断该点是否在圆内
 			if( (node->point.x >= (target.x - distanceTol)) && (node->point.x <= (target.x + distanceTol)) \
 				&& (node->point.y >= (target.y - distanceTol)) && (node->point.y <= (target.y + distanceTol))\
-                && (node->point.z >= (target.z - distanceTol)) && (node->point.z <= (target.z + distanceTol)))
+		&& (node->point.z >= (target.z - distanceTol)) && (node->point.z <= (target.z + distanceTol)))
 			{
 				float dist = sqrt(pow((node->point.x - target.x), 2) + pow((node->point.y - target.y), 2)+pow((node->point.z - target.z), 2));
 				if(dist<=distanceTol)
 					ids.push_back(node->id);
 			}
-            	// 如果该点在box范围内，则左右子树都要搜索
+		// 如果该点在box范围内，则左右子树都要搜索
 			if(depth%3 == 0)
 			{
 				if((target.x - distanceTol) < node->point.x)
@@ -79,7 +79,7 @@ struct KdTree
 				if((target.x + distanceTol) > node->point.x)
 					searchHelper(target, node->right, depth+1, distanceTol, ids);
 			}
-            		if(depth%3 == 1)
+			if(depth%3 == 1)
 			{
 				if((target.y - distanceTol) < node->point.y)
 					searchHelper(target, node->left, depth+1, distanceTol, ids);
@@ -99,7 +99,7 @@ struct KdTree
 	std::vector<int> search(pcl::PointXYZI target, float distanceTol)
 	{
 		std::vector<int> ids;
-        	searchHelper(target,root,0,distanceTol,ids);
+		searchHelper(target,root,0,distanceTol,ids);
 		return ids;
 	}
 };
