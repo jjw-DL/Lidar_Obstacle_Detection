@@ -62,7 +62,7 @@ struct KdTree
 	{
 		if(node!=NULL)
 		{   
-		// 判断该点是否在box（球的外接正方体）范围内，如果在则继续判断该点是否在圆内
+			// 判断该点是否在box（球的外接正方体）范围内，如果在则继续判断该点是否在圆内
 			if( (node->point.x >= (target.x - distanceTol)) && (node->point.x <= (target.x + distanceTol)) \
 				&& (node->point.y >= (target.y - distanceTol)) && (node->point.y <= (target.y + distanceTol))\
 		&& (node->point.z >= (target.z - distanceTol)) && (node->point.z <= (target.z + distanceTol)))
@@ -71,7 +71,7 @@ struct KdTree
 				if(dist<=distanceTol)
 					ids.push_back(node->id);
 			}
-		// 如果该点在box范围内，则左右子树都要搜索
+			// 如果该点在box范围内，则左右子树都要搜索
 			if(depth%3 == 0)
 			{
 				if((target.x - distanceTol) < node->point.x)
