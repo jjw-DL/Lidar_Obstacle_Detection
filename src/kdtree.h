@@ -99,7 +99,7 @@ struct KdTree
 	std::vector<int> search(pcl::PointXYZI target, float distanceTol)
 	{
 		std::vector<int> ids;
-        searchHelper(target,root,0,distanceTol,ids);
+        	searchHelper(target,root,0,distanceTol,ids);
 		return ids;
 	}
 };
